@@ -1,0 +1,1721 @@
+2025-09-05 13:12:58,127 - __main__ - INFO - Bot starting...
+2025-09-05 13:12:58,127 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 13:12:58,310 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 13:13:18,976 - __main__ - INFO - User 1226131544 started bot
+2025-09-05 13:13:19,218 - aiogram.event - INFO - Update id=269252183 is handled. Duration 243 ms by bot id=8370724288
+2025-09-05 13:13:23,863 - aiogram.event - INFO - Update id=269252184 is handled. Duration 89 ms by bot id=8370724288
+2025-09-05 13:13:25,798 - aiogram.event - INFO - Update id=269252185 is handled. Duration 158 ms by bot id=8370724288
+2025-09-05 13:13:27,706 - aiogram.event - INFO - Update id=269252186 is handled. Duration 162 ms by bot id=8370724288
+2025-09-05 13:13:29,324 - aiogram.event - INFO - Update id=269252187 is handled. Duration 305 ms by bot id=8370724288
+2025-09-05 13:13:31,352 - aiogram.event - INFO - Update id=269252188 is not handled. Duration 111 ms by bot id=8370724288
+2025-09-05 13:13:31,352 - aiogram.event - ERROR - Cause exception while process update id=269252188 by bot id=8370724288
+DetachedInstanceError: Instance <Product at 0x12005bec0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 292, in on_qty
+    f"Добавлено: {product.name} — {size} × {qty} = *{product.price * qty} ₽*\n\n{format_cart(cb.from_user.id)}",
+                  ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 569, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1096, in get
+    value = self._fire_loader_callables(state, key, passive)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1126, in _fire_loader_callables
+    return state._load_expired(state, passive)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/state.py", line 803, in _load_expired
+    self.manager.expired_attribute_loader(self, toload, passive)
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 1607, in load_scalar_attributes
+    raise orm_exc.DetachedInstanceError(
+sqlalchemy.orm.exc.DetachedInstanceError: Instance <Product at 0x12005bec0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-05 13:13:34,883 - aiogram.event - INFO - Update id=269252189 is not handled. Duration 8 ms by bot id=8370724288
+2025-09-05 13:13:34,883 - aiogram.event - ERROR - Cause exception while process update id=269252189 by bot id=8370724288
+DetachedInstanceError: Instance <Product at 0x11679cf50> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 292, in on_qty
+    f"Добавлено: {product.name} — {size} × {qty} = *{product.price * qty} ₽*\n\n{format_cart(cb.from_user.id)}",
+                  ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 569, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1096, in get
+    value = self._fire_loader_callables(state, key, passive)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1126, in _fire_loader_callables
+    return state._load_expired(state, passive)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/state.py", line 803, in _load_expired
+    self.manager.expired_attribute_loader(self, toload, passive)
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 1607, in load_scalar_attributes
+    raise orm_exc.DetachedInstanceError(
+sqlalchemy.orm.exc.DetachedInstanceError: Instance <Product at 0x11679cf50> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-05 13:13:35,301 - aiogram.event - INFO - Update id=269252190 is not handled. Duration 9 ms by bot id=8370724288
+2025-09-05 13:13:35,302 - aiogram.event - ERROR - Cause exception while process update id=269252190 by bot id=8370724288
+DetachedInstanceError: Instance <Product at 0x11679cec0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 292, in on_qty
+    f"Добавлено: {product.name} — {size} × {qty} = *{product.price * qty} ₽*\n\n{format_cart(cb.from_user.id)}",
+                  ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 569, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1096, in get
+    value = self._fire_loader_callables(state, key, passive)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1126, in _fire_loader_callables
+    return state._load_expired(state, passive)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/state.py", line 803, in _load_expired
+    self.manager.expired_attribute_loader(self, toload, passive)
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 1607, in load_scalar_attributes
+    raise orm_exc.DetachedInstanceError(
+sqlalchemy.orm.exc.DetachedInstanceError: Instance <Product at 0x11679cec0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-05 13:13:37,536 - aiogram.event - INFO - Update id=269252191 is handled. Duration 90 ms by bot id=8370724288
+2025-09-05 13:13:38,769 - aiogram.event - INFO - Update id=269252192 is handled. Duration 72 ms by bot id=8370724288
+2025-09-05 13:13:42,169 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 13:13:42,315 - aiogram.event - INFO - Update id=269252193 is handled. Duration 149 ms by bot id=8370724288
+2025-09-05 13:13:44,419 - aiogram.event - INFO - Update id=269252194 is handled. Duration 162 ms by bot id=8370724288
+2025-09-05 13:13:46,047 - aiogram.event - INFO - Update id=269252195 is handled. Duration 76 ms by bot id=8370724288
+2025-09-05 13:13:49,399 - aiogram.event - INFO - Update id=269252196 is handled. Duration 360 ms by bot id=8370724288
+2025-09-05 13:13:50,404 - aiogram.event - INFO - Update id=269252197 is handled. Duration 190 ms by bot id=8370724288
+2025-09-05 13:13:51,932 - aiogram.event - INFO - Update id=269252198 is handled. Duration 161 ms by bot id=8370724288
+2025-09-05 13:13:53,267 - aiogram.event - INFO - Update id=269252199 is not handled. Duration 10 ms by bot id=8370724288
+2025-09-05 13:13:53,267 - aiogram.event - ERROR - Cause exception while process update id=269252199 by bot id=8370724288
+DetachedInstanceError: Instance <Product at 0x1202d6f60> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 292, in on_qty
+    f"Добавлено: {product.name} — {size} × {qty} = *{product.price * qty} ₽*\n\n{format_cart(cb.from_user.id)}",
+                  ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 569, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1096, in get
+    value = self._fire_loader_callables(state, key, passive)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1126, in _fire_loader_callables
+    return state._load_expired(state, passive)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/state.py", line 803, in _load_expired
+    self.manager.expired_attribute_loader(self, toload, passive)
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 1607, in load_scalar_attributes
+    raise orm_exc.DetachedInstanceError(
+sqlalchemy.orm.exc.DetachedInstanceError: Instance <Product at 0x1202d6f60> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-05 13:14:20,424 - __main__ - INFO - User 1767628555 started bot
+2025-09-05 13:14:20,625 - aiogram.event - INFO - Update id=269252200 is handled. Duration 203 ms by bot id=8370724288
+2025-09-05 13:14:25,357 - aiogram.event - INFO - Update id=269252201 is handled. Duration 81 ms by bot id=8370724288
+2025-09-05 13:14:27,245 - aiogram.event - INFO - Update id=269252202 is handled. Duration 77 ms by bot id=8370724288
+2025-09-05 13:14:29,631 - aiogram.event - INFO - Update id=269252203 is handled. Duration 208 ms by bot id=8370724288
+2025-09-05 13:14:32,761 - aiogram.event - INFO - Update id=269252204 is not handled. Duration 1 ms by bot id=8370724288
+2025-09-05 13:14:46,909 - aiogram.event - INFO - Update id=269252205 is handled. Duration 283 ms by bot id=8370724288
+2025-09-05 13:14:49,702 - aiogram.event - INFO - Update id=269252206 is handled. Duration 78 ms by bot id=8370724288
+2025-09-05 13:14:50,621 - __main__ - INFO - User 1767628555 requested help
+2025-09-05 13:14:50,697 - aiogram.event - INFO - Update id=269252207 is handled. Duration 76 ms by bot id=8370724288
+2025-09-05 13:14:53,531 - aiogram.event - INFO - Update id=269252208 is handled. Duration 145 ms by bot id=8370724288
+2025-09-05 14:11:55,136 - aiogram.dispatcher - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-09-05 14:11:55,139 - aiogram.dispatcher - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8370724288)
+2025-09-05 14:12:06,340 - aiogram.dispatcher - INFO - Connection established (tryings = 1, bot id = 8370724288)
+2025-09-05 14:28:29,824 - aiogram.event - INFO - Update id=269252209 is not handled. Duration 46 ms by bot id=8370724288
+2025-09-05 14:28:29,826 - aiogram.event - ERROR - Cause exception while process update id=269252209 by bot id=8370724288
+DetachedInstanceError: Instance <Product at 0x120290980> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 292, in on_qty
+    f"Добавлено: {product.name} — {size} × {qty} = *{product.price * qty} ₽*\n\n{format_cart(cb.from_user.id)}",
+                  ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 569, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1096, in get
+    value = self._fire_loader_callables(state, key, passive)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1126, in _fire_loader_callables
+    return state._load_expired(state, passive)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/state.py", line 803, in _load_expired
+    self.manager.expired_attribute_loader(self, toload, passive)
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 1607, in load_scalar_attributes
+    raise orm_exc.DetachedInstanceError(
+sqlalchemy.orm.exc.DetachedInstanceError: Instance <Product at 0x120290980> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-05 14:33:35,340 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 14:33:35,344 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 14:33:35,344 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 14:33:38,780 - __main__ - INFO - Bot starting...
+2025-09-05 14:33:38,780 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 14:33:38,996 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 14:33:45,180 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 14:33:45,428 - aiogram.event - INFO - Update id=269252210 is handled. Duration 248 ms by bot id=8370724288
+2025-09-05 14:33:47,478 - __main__ - INFO - User 1226131544 started bot
+2025-09-05 14:33:47,611 - aiogram.event - INFO - Update id=269252211 is handled. Duration 133 ms by bot id=8370724288
+2025-09-05 14:33:49,792 - aiogram.event - INFO - Update id=269252212 is handled. Duration 131 ms by bot id=8370724288
+2025-09-05 14:33:52,314 - aiogram.event - INFO - Update id=269252213 is handled. Duration 154 ms by bot id=8370724288
+2025-09-05 14:33:53,681 - aiogram.event - INFO - Update id=269252214 is handled. Duration 154 ms by bot id=8370724288
+2025-09-05 14:33:57,354 - aiogram.event - INFO - Update id=269252215 is handled. Duration 520 ms by bot id=8370724288
+2025-09-05 14:33:59,596 - aiogram.event - INFO - Update id=269252216 is handled. Duration 271 ms by bot id=8370724288
+2025-09-05 14:34:02,248 - aiogram.event - INFO - Update id=269252217 is handled. Duration 165 ms by bot id=8370724288
+2025-09-05 14:34:10,313 - aiogram.event - INFO - Update id=269252218 is handled. Duration 88 ms by bot id=8370724288
+2025-09-05 14:34:11,722 - aiogram.event - INFO - Update id=269252219 is handled. Duration 75 ms by bot id=8370724288
+2025-09-05 14:34:12,697 - aiogram.event - INFO - Update id=269252220 is handled. Duration 88 ms by bot id=8370724288
+2025-09-05 14:34:16,529 - aiogram.event - INFO - Update id=269252221 is handled. Duration 130 ms by bot id=8370724288
+2025-09-05 14:34:17,834 - aiogram.event - INFO - Update id=269252222 is handled. Duration 400 ms by bot id=8370724288
+2025-09-05 14:34:18,661 - aiogram.event - INFO - Update id=269252223 is handled. Duration 143 ms by bot id=8370724288
+2025-09-05 14:34:19,726 - aiogram.event - INFO - Update id=269252224 is handled. Duration 150 ms by bot id=8370724288
+2025-09-05 14:40:49,483 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 14:40:49,486 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 14:40:49,486 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 14:40:53,285 - __main__ - INFO - Bot starting...
+2025-09-05 14:40:53,285 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 14:40:53,551 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 14:41:04,119 - __main__ - INFO - User 1226131544 started bot
+2025-09-05 14:41:04,355 - aiogram.event - INFO - Update id=269252225 is handled. Duration 237 ms by bot id=8370724288
+2025-09-05 14:41:12,437 - aiogram.event - INFO - Update id=269252226 is handled. Duration 82 ms by bot id=8370724288
+2025-09-05 14:41:13,812 - aiogram.event - INFO - Update id=269252227 is handled. Duration 160 ms by bot id=8370724288
+2025-09-05 14:41:14,947 - aiogram.event - INFO - Update id=269252228 is handled. Duration 154 ms by bot id=8370724288
+2025-09-05 14:41:16,110 - aiogram.event - INFO - Update id=269252229 is handled. Duration 214 ms by bot id=8370724288
+2025-09-05 14:41:17,480 - aiogram.event - INFO - Update id=269252230 is handled. Duration 440 ms by bot id=8370724288
+2025-09-05 14:41:22,971 - aiogram.event - INFO - Update id=269252231 is handled. Duration 99 ms by bot id=8370724288
+2025-09-05 14:41:26,029 - aiogram.event - INFO - Update id=269252232 is handled. Duration 89 ms by bot id=8370724288
+2025-09-05 14:41:48,186 - aiogram.event - INFO - Update id=269252233 is handled. Duration 187 ms by bot id=8370724288
+2025-09-05 14:41:52,693 - aiogram.event - INFO - Update id=269252234 is handled. Duration 96 ms by bot id=8370724288
+2025-09-05 14:41:57,896 - aiogram.event - INFO - Update id=269252235 is handled. Duration 149 ms by bot id=8370724288
+2025-09-05 14:42:08,425 - aiogram.event - INFO - Update id=269252236 is handled. Duration 78 ms by bot id=8370724288
+2025-09-05 14:42:12,949 - aiogram.event - INFO - Update id=269252237 is handled. Duration 637 ms by bot id=8370724288
+2025-09-05 14:42:27,512 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 14:42:27,652 - aiogram.event - INFO - Update id=269252238 is handled. Duration 140 ms by bot id=8370724288
+2025-09-05 14:42:30,084 - aiogram.event - INFO - Update id=269252239 is handled. Duration 2 ms by bot id=8370724288
+2025-09-05 14:42:34,122 - aiogram.event - INFO - Update id=269252240 is handled. Duration 374 ms by bot id=8370724288
+2025-09-05 14:43:14,165 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 14:43:14,412 - aiogram.event - INFO - Update id=269252241 is handled. Duration 248 ms by bot id=8370724288
+2025-09-05 14:58:25,439 - aiogram.dispatcher - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-09-05 14:58:25,442 - aiogram.dispatcher - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8370724288)
+2025-09-05 14:58:36,695 - aiogram.dispatcher - INFO - Connection established (tryings = 1, bot id = 8370724288)
+2025-09-05 15:26:00,686 - aiogram.event - INFO - Update id=269252242 is handled. Duration 593 ms by bot id=8370724288
+2025-09-05 15:26:03,650 - aiogram.event - INFO - Update id=269252243 is handled. Duration 405 ms by bot id=8370724288
+2025-09-05 15:26:07,828 - aiogram.event - INFO - Update id=269252244 is handled. Duration 508 ms by bot id=8370724288
+2025-09-05 15:26:09,537 - aiogram.event - INFO - Update id=269252245 is handled. Duration 148 ms by bot id=8370724288
+2025-09-05 15:26:14,016 - aiogram.event - INFO - Update id=269252246 is handled. Duration 148 ms by bot id=8370724288
+2025-09-05 15:26:20,990 - aiogram.event - INFO - Update id=269252247 is handled. Duration 1287 ms by bot id=8370724288
+2025-09-05 15:26:33,142 - aiogram.event - INFO - Update id=269252248 is handled. Duration 407 ms by bot id=8370724288
+2025-09-05 15:26:39,169 - aiogram.event - INFO - Update id=269252249 is handled. Duration 84 ms by bot id=8370724288
+2025-09-05 15:26:41,274 - aiogram.event - INFO - Update id=269252250 is handled. Duration 83 ms by bot id=8370724288
+2025-09-05 15:26:49,302 - aiogram.event - INFO - Update id=269252251 is handled. Duration 78 ms by bot id=8370724288
+2025-09-05 15:26:57,812 - aiogram.event - INFO - Update id=269252252 is handled. Duration 90 ms by bot id=8370724288
+2025-09-05 15:27:02,151 - aiogram.event - INFO - Update id=269252253 is handled. Duration 138 ms by bot id=8370724288
+2025-09-05 15:27:06,709 - aiogram.event - INFO - Update id=269252254 is handled. Duration 79 ms by bot id=8370724288
+2025-09-05 15:27:11,428 - aiogram.event - INFO - Update id=269252255 is handled. Duration 86 ms by bot id=8370724288
+2025-09-05 15:27:16,250 - aiogram.event - INFO - Update id=269252256 is handled. Duration 506 ms by bot id=8370724288
+2025-09-05 15:29:42,326 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 15:29:42,327 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 15:29:42,327 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 15:35:02,664 - __main__ - INFO - Bot starting...
+2025-09-05 15:35:02,664 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 15:35:03,165 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 15:35:03,511 - aiogram.event - INFO - Update id=269252257 is handled. Duration 275 ms by bot id=8370724288
+2025-09-05 15:35:07,412 - aiogram.event - INFO - Update id=269252258 is not handled. Duration 12 ms by bot id=8370724288
+2025-09-05 15:35:07,412 - aiogram.event - ERROR - Cause exception while process update id=269252258 by bot id=8370724288
+ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 280, in on_category_select
+    await cb.message.answer(f"Товары категории:", reply_markup=category_products_ikb(category_key))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 114, in category_products_ikb
+    products = ProductRepository.get_by_category(db, category.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/repositories.py", line 48, in get_by_category
+    ).all()
+      ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 15:35:14,579 - aiogram.event - INFO - Update id=269252259 is not handled. Duration 9 ms by bot id=8370724288
+2025-09-05 15:35:14,579 - aiogram.event - ERROR - Cause exception while process update id=269252259 by bot id=8370724288
+ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 2, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 280, in on_category_select
+    await cb.message.answer(f"Товары категории:", reply_markup=category_products_ikb(category_key))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 114, in category_products_ikb
+    products = ProductRepository.get_by_category(db, category.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/repositories.py", line 48, in get_by_category
+    ).all()
+      ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 2, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 15:35:16,120 - aiogram.event - INFO - Update id=269252260 is not handled. Duration 8 ms by bot id=8370724288
+2025-09-05 15:35:16,120 - aiogram.event - ERROR - Cause exception while process update id=269252260 by bot id=8370724288
+ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 3, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 280, in on_category_select
+    await cb.message.answer(f"Товары категории:", reply_markup=category_products_ikb(category_key))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 114, in category_products_ikb
+    products = ProductRepository.get_by_category(db, category.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/repositories.py", line 48, in get_by_category
+    ).all()
+      ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 3, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 15:35:31,093 - aiogram.event - INFO - Update id=269252261 is handled. Duration 2603 ms by bot id=8370724288
+2025-09-05 15:35:34,169 - aiogram.event - INFO - Update id=269252262 is handled. Duration 79 ms by bot id=8370724288
+2025-09-05 15:35:35,576 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 15:35:35,962 - aiogram.event - INFO - Update id=269252263 is handled. Duration 386 ms by bot id=8370724288
+2025-09-05 15:35:40,169 - aiogram.event - INFO - Update id=269252264 is handled. Duration 78 ms by bot id=8370724288
+2025-09-05 15:35:41,736 - aiogram.event - INFO - Update id=269252265 is handled. Duration 7 ms by bot id=8370724288
+2025-09-05 15:35:43,474 - aiogram.event - INFO - Update id=269252266 is handled. Duration 77 ms by bot id=8370724288
+2025-09-05 15:35:49,296 - aiogram.event - INFO - Update id=269252267 is handled. Duration 583 ms by bot id=8370724288
+2025-09-05 15:35:50,610 - aiogram.event - INFO - Update id=269252268 is handled. Duration 111 ms by bot id=8370724288
+2025-09-05 15:37:31,745 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 15:37:31,747 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 15:37:31,747 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 15:37:41,385 - __main__ - INFO - Bot starting...
+2025-09-05 15:37:41,385 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 15:37:41,599 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 15:37:51,158 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 15:37:51,954 - aiogram.event - INFO - Update id=269252269 is handled. Duration 796 ms by bot id=8370724288
+2025-09-05 15:37:53,304 - __main__ - INFO - User 1226131544 started bot
+2025-09-05 15:37:53,535 - aiogram.event - INFO - Update id=269252270 is handled. Duration 231 ms by bot id=8370724288
+2025-09-05 15:37:55,039 - aiogram.event - INFO - Update id=269252271 is handled. Duration 85 ms by bot id=8370724288
+2025-09-05 15:37:56,189 - aiogram.event - INFO - Update id=269252272 is not handled. Duration 9 ms by bot id=8370724288
+2025-09-05 15:37:56,189 - aiogram.event - ERROR - Cause exception while process update id=269252272 by bot id=8370724288
+ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 282, in on_category_select
+    await cb.message.answer(f"Товары категории:", reply_markup=category_products_ikb(category_key))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 114, in category_products_ikb
+    products = ProductRepository.get_by_category(db, category.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/repositories.py", line 48, in get_by_category
+    ).all()
+      ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 15:37:59,381 - aiogram.event - INFO - Update id=269252273 is not handled. Duration 8 ms by bot id=8370724288
+2025-09-05 15:37:59,382 - aiogram.event - ERROR - Cause exception while process update id=269252273 by bot id=8370724288
+ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 2, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 282, in on_category_select
+    await cb.message.answer(f"Товары категории:", reply_markup=category_products_ikb(category_key))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 114, in category_products_ikb
+    products = ProductRepository.get_by_category(db, category.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/repositories.py", line 48, in get_by_category
+    ).all()
+      ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 2, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 15:38:08,772 - aiogram.event - INFO - Update id=269252274 is not handled. Duration 4 ms by bot id=8370724288
+2025-09-05 15:38:08,772 - aiogram.event - ERROR - Cause exception while process update id=269252274 by bot id=8370724288
+ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 2, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 282, in on_category_select
+    await cb.message.answer(f"Товары категории:", reply_markup=category_products_ikb(category_key))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 114, in category_products_ikb
+    products = ProductRepository.get_by_category(db, category.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/repositories.py", line 48, in get_by_category
+    ).all()
+      ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 2, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 15:41:53,011 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 15:41:53,017 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 15:41:53,017 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 15:42:17,764 - __main__ - INFO - Bot starting...
+2025-09-05 15:42:17,764 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 15:42:17,922 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 15:42:22,746 - aiogram.event - INFO - Update id=269252275 is not handled. Duration 20 ms by bot id=8370724288
+2025-09-05 15:42:22,746 - aiogram.event - ERROR - Cause exception while process update id=269252275 by bot id=8370724288
+ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 282, in on_category_select
+    await cb.message.answer(f"Товары категории:", reply_markup=category_products_ikb(category_key))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 114, in category_products_ikb
+    products = ProductRepository.get_by_category(db, category.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/repositories.py", line 48, in get_by_category
+    ).all()
+      ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 15:42:34,849 - aiogram.event - INFO - Update id=269252276 is not handled. Duration 7 ms by bot id=8370724288
+2025-09-05 15:42:34,849 - aiogram.event - ERROR - Cause exception while process update id=269252276 by bot id=8370724288
+ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 282, in on_category_select
+    await cb.message.answer(f"Товары категории:", reply_markup=category_products_ikb(category_key))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 114, in category_products_ikb
+    products = ProductRepository.get_by_category(db, category.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/repositories.py", line 48, in get_by_category
+    ).all()
+      ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 15:45:15,136 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 15:45:15,140 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 15:45:15,141 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 16:18:18,710 - __main__ - INFO - Bot starting...
+2025-09-05 16:18:18,710 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 16:18:18,888 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:18:26,332 - aiogram.event - INFO - Update id=269252277 is handled. Duration 288 ms by bot id=8370724288
+2025-09-05 16:18:27,881 - aiogram.event - INFO - Update id=269252278 is not handled. Duration 12 ms by bot id=8370724288
+2025-09-05 16:18:27,882 - aiogram.event - ERROR - Cause exception while process update id=269252278 by bot id=8370724288
+ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 282, in on_category_select
+    await cb.message.answer(f"Товары категории:", reply_markup=category_products_ikb(category_key))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 114, in category_products_ikb
+    products = ProductRepository.get_by_category(db, category.id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/repositories.py", line 44, in get_by_category
+    ).all()
+      ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 16:20:36,165 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 16:20:36,168 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:20:36,169 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 16:28:18,076 - __main__ - INFO - Bot starting...
+2025-09-05 16:28:18,076 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 16:28:18,359 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:28:25,700 - aiogram.event - INFO - Update id=269252279 is handled. Duration 2218 ms by bot id=8370724288
+2025-09-05 16:28:26,813 - __main__ - ERROR - Error in on_category_select: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 16:28:26,870 - aiogram.event - INFO - Update id=269252280 is handled. Duration 69 ms by bot id=8370724288
+2025-09-05 16:28:28,756 - __main__ - ERROR - Error in on_category_select: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 2, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 16:28:28,814 - aiogram.event - INFO - Update id=269252281 is handled. Duration 62 ms by bot id=8370724288
+2025-09-05 16:28:29,502 - __main__ - ERROR - Error in on_category_select: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 3, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 16:28:29,557 - aiogram.event - INFO - Update id=269252282 is handled. Duration 139 ms by bot id=8370724288
+2025-09-05 16:28:33,544 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:28:33,622 - aiogram.event - INFO - Update id=269252283 is handled. Duration 78 ms by bot id=8370724288
+2025-09-05 16:28:34,847 - aiogram.event - INFO - Update id=269252284 is handled. Duration 73 ms by bot id=8370724288
+2025-09-05 16:28:36,430 - aiogram.event - INFO - Update id=269252285 is handled. Duration 74 ms by bot id=8370724288
+2025-09-05 16:28:40,626 - aiogram.event - INFO - Update id=269252286 is handled. Duration 3 ms by bot id=8370724288
+2025-09-05 16:28:45,341 - aiogram.event - INFO - Update id=269252287 is handled. Duration 4 ms by bot id=8370724288
+2025-09-05 16:28:48,378 - aiogram.event - INFO - Update id=269252288 is handled. Duration 113 ms by bot id=8370724288
+2025-09-05 16:28:50,655 - aiogram.event - INFO - Update id=269252289 is handled. Duration 76 ms by bot id=8370724288
+2025-09-05 16:28:52,785 - __main__ - ERROR - Error in on_category_select: (psycopg2.errors.UndefinedColumn) column products.images does not exist
+LINE 1: ...products_price, products.sizes AS products_sizes, products.i...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.category_id AS products_category_id, products.product_id AS products_product_id, products.name AS products_name, products.description AS products_description, products.price AS products_price, products.sizes AS products_sizes, products.images AS products_images, products.is_active AS products_is_active, products.created_at AS products_created_at 
+FROM products 
+WHERE products.category_id = %(category_id_1)s AND products.is_active = %(is_active_1)s]
+[parameters: {'category_id_1': 1, 'is_active_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-05 16:28:52,841 - aiogram.event - INFO - Update id=269252290 is handled. Duration 60 ms by bot id=8370724288
+2025-09-05 16:30:00,611 - aiogram.event - INFO - Update id=269252291 is not handled. Duration 8 ms by bot id=8370724288
+2025-09-05 16:30:58,719 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 16:30:58,724 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:30:58,725 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 16:32:06,946 - __main__ - INFO - Bot starting...
+2025-09-05 16:32:06,946 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 16:32:07,270 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:32:15,010 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:32:16,203 - aiogram.event - INFO - Update id=269252292 is handled. Duration 1193 ms by bot id=8370724288
+2025-09-05 16:32:18,414 - __main__ - INFO - User 1226131544 started bot
+2025-09-05 16:32:18,519 - aiogram.event - INFO - Update id=269252293 is handled. Duration 105 ms by bot id=8370724288
+2025-09-05 16:32:23,409 - aiogram.event - INFO - Update id=269252294 is handled. Duration 90 ms by bot id=8370724288
+2025-09-05 16:32:25,452 - aiogram.event - INFO - Update id=269252295 is handled. Duration 302 ms by bot id=8370724288
+2025-09-05 16:32:28,274 - aiogram.event - INFO - Update id=269252296 is handled. Duration 423 ms by bot id=8370724288
+2025-09-05 16:32:29,478 - aiogram.event - INFO - Update id=269252297 is handled. Duration 138 ms by bot id=8370724288
+2025-09-05 16:32:30,530 - aiogram.event - INFO - Update id=269252298 is handled. Duration 155 ms by bot id=8370724288
+2025-09-05 16:32:34,606 - aiogram.event - INFO - Update id=269252299 is handled. Duration 93 ms by bot id=8370724288
+2025-09-05 16:32:38,529 - aiogram.event - INFO - Update id=269252300 is handled. Duration 137 ms by bot id=8370724288
+2025-09-05 16:32:41,183 - aiogram.event - INFO - Update id=269252301 is handled. Duration 77 ms by bot id=8370724288
+2025-09-05 16:32:47,361 - aiogram.event - INFO - Update id=269252302 is handled. Duration 329 ms by bot id=8370724288
+2025-09-05 16:32:50,215 - aiogram.event - INFO - Update id=269252303 is handled. Duration 154 ms by bot id=8370724288
+2025-09-05 16:32:52,307 - aiogram.event - INFO - Update id=269252304 is handled. Duration 136 ms by bot id=8370724288
+2025-09-05 16:32:55,471 - aiogram.event - INFO - Update id=269252305 is handled. Duration 76 ms by bot id=8370724288
+2025-09-05 16:32:57,622 - aiogram.event - INFO - Update id=269252306 is handled. Duration 72 ms by bot id=8370724288
+2025-09-05 16:33:01,367 - aiogram.event - INFO - Update id=269252307 is handled. Duration 665 ms by bot id=8370724288
+2025-09-05 16:33:03,543 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:33:04,100 - aiogram.event - INFO - Update id=269252308 is handled. Duration 557 ms by bot id=8370724288
+2025-09-05 16:33:07,615 - aiogram.event - INFO - Update id=269252309 is handled. Duration 3 ms by bot id=8370724288
+2025-09-05 16:33:09,705 - aiogram.event - INFO - Update id=269252310 is handled. Duration 79 ms by bot id=8370724288
+2025-09-05 16:33:24,507 - aiogram.event - INFO - Update id=269252311 is handled. Duration 79 ms by bot id=8370724288
+2025-09-05 16:34:06,389 - aiogram.event - INFO - Update id=269252312 is not handled. Duration 5 ms by bot id=8370724288
+2025-09-05 16:34:10,206 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:34:10,644 - aiogram.event - INFO - Update id=269252313 is handled. Duration 438 ms by bot id=8370724288
+2025-09-05 16:34:15,738 - aiogram.event - INFO - Update id=269252314 is handled. Duration 5 ms by bot id=8370724288
+2025-09-05 16:34:17,757 - aiogram.event - INFO - Update id=269252315 is handled. Duration 78 ms by bot id=8370724288
+2025-09-05 16:37:20,166 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 16:37:20,170 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:37:20,170 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 16:37:24,098 - __main__ - INFO - Bot starting...
+2025-09-05 16:37:24,099 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 16:37:24,362 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:37:28,469 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:37:28,689 - aiogram.event - INFO - Update id=269252316 is handled. Duration 220 ms by bot id=8370724288
+2025-09-05 16:37:29,833 - aiogram.event - INFO - Update id=269252317 is handled. Duration 99 ms by bot id=8370724288
+2025-09-05 16:37:41,154 - aiogram.event - INFO - Update id=269252318 is not handled. Duration 5 ms by bot id=8370724288
+2025-09-05 16:37:48,347 - aiogram.event - INFO - Update id=269252319 is handled. Duration 186 ms by bot id=8370724288
+2025-09-05 16:37:50,397 - aiogram.event - INFO - Update id=269252320 is handled. Duration 91 ms by bot id=8370724288
+2025-09-05 16:37:51,401 - aiogram.event - INFO - Update id=269252321 is handled. Duration 241 ms by bot id=8370724288
+2025-09-05 16:37:52,275 - aiogram.event - INFO - Update id=269252322 is handled. Duration 169 ms by bot id=8370724288
+2025-09-05 16:37:53,836 - aiogram.event - INFO - Update id=269252323 is handled. Duration 144 ms by bot id=8370724288
+2025-09-05 16:37:55,386 - aiogram.event - INFO - Update id=269252324 is handled. Duration 711 ms by bot id=8370724288
+2025-09-05 16:37:57,497 - aiogram.event - INFO - Update id=269252325 is handled. Duration 349 ms by bot id=8370724288
+2025-09-05 16:37:58,641 - aiogram.event - INFO - Update id=269252326 is handled. Duration 74 ms by bot id=8370724288
+2025-09-05 16:38:00,979 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:38:01,390 - aiogram.event - INFO - Update id=269252327 is handled. Duration 412 ms by bot id=8370724288
+2025-09-05 16:38:05,092 - aiogram.event - INFO - Update id=269252328 is handled. Duration 81 ms by bot id=8370724288
+2025-09-05 16:38:08,362 - aiogram.event - INFO - Update id=269252329 is handled. Duration 217 ms by bot id=8370724288
+2025-09-05 16:38:11,579 - aiogram.event - INFO - Update id=269252330 is handled. Duration 77 ms by bot id=8370724288
+2025-09-05 16:38:16,285 - aiogram.event - INFO - Update id=269252331 is handled. Duration 85 ms by bot id=8370724288
+2025-09-05 16:38:21,550 - aiogram.event - INFO - Update id=269252332 is handled. Duration 3 ms by bot id=8370724288
+2025-09-05 16:38:25,999 - aiogram.event - INFO - Update id=269252333 is handled. Duration 100 ms by bot id=8370724288
+2025-09-05 16:39:32,280 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 16:39:32,283 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:39:32,284 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 16:40:00,450 - __main__ - INFO - Bot starting...
+2025-09-05 16:40:00,450 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 16:40:00,692 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:40:07,059 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:40:07,339 - aiogram.event - INFO - Update id=269252334 is handled. Duration 280 ms by bot id=8370724288
+2025-09-05 16:40:08,555 - aiogram.event - INFO - Update id=269252335 is handled. Duration 112 ms by bot id=8370724288
+2025-09-05 16:40:10,226 - aiogram.event - INFO - Update id=269252336 is handled. Duration 109 ms by bot id=8370724288
+2025-09-05 16:40:12,442 - aiogram.event - INFO - Update id=269252337 is handled. Duration 74 ms by bot id=8370724288
+2025-09-05 16:50:01,483 - aiogram.dispatcher - ERROR - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-09-05 16:50:01,486 - aiogram.dispatcher - WARNING - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8370724288)
+2025-09-05 16:50:14,234 - aiogram.dispatcher - INFO - Connection established (tryings = 1, bot id = 8370724288)
+2025-09-05 16:52:43,404 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 16:52:43,407 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:52:43,407 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 16:52:47,098 - __main__ - INFO - Bot starting...
+2025-09-05 16:52:47,098 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 16:52:47,369 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:52:51,861 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:52:52,319 - aiogram.event - INFO - Update id=269252338 is handled. Duration 457 ms by bot id=8370724288
+2025-09-05 16:52:54,079 - aiogram.event - INFO - Update id=269252339 is handled. Duration 428 ms by bot id=8370724288
+2025-09-05 16:53:03,764 - aiogram.event - INFO - Update id=269252340 is not handled. Duration 3 ms by bot id=8370724288
+2025-09-05 16:53:12,707 - aiogram.event - INFO - Update id=269252341 is not handled. Duration 5 ms by bot id=8370724288
+2025-09-05 16:53:12,708 - aiogram.event - ERROR - Cause exception while process update id=269252341 by bot id=8370724288
+AttributeError: type object 'User' has no attribute 'is_admin'
+Traceback (most recent call last):
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/venv/lib/python3.12/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "/Users/oleg/TG_BOT_t-short/bot.py", line 849, in check_db
+    admin_count = db.query(User).filter(User.is_admin == True).count()
+                                        ^^^^^^^^^^^^^
+AttributeError: type object 'User' has no attribute 'is_admin'
+2025-09-05 16:54:16,879 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 16:54:16,881 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:54:16,881 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 16:56:44,173 - __main__ - INFO - Bot starting...
+2025-09-05 16:56:44,173 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 16:56:44,752 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:56:51,341 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:56:51,555 - aiogram.event - INFO - Update id=269252342 is handled. Duration 215 ms by bot id=8370724288
+2025-09-05 16:56:57,144 - aiogram.event - INFO - Update id=269252343 is handled. Duration 94 ms by bot id=8370724288
+2025-09-05 16:57:27,235 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 16:57:27,238 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:57:27,238 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 16:57:30,148 - __main__ - INFO - Bot starting...
+2025-09-05 16:57:30,148 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 16:57:30,350 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:57:37,741 - aiogram.event - INFO - Update id=269252344 is handled. Duration 201 ms by bot id=8370724288
+2025-09-05 16:57:39,116 - aiogram.event - INFO - Update id=269252345 is handled. Duration 149 ms by bot id=8370724288
+2025-09-05 16:58:07,530 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 16:58:07,532 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:58:07,532 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 16:58:11,031 - __main__ - INFO - Bot starting...
+2025-09-05 16:58:11,031 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 16:58:11,246 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:58:15,065 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:58:15,612 - aiogram.event - INFO - Update id=269252346 is handled. Duration 546 ms by bot id=8370724288
+2025-09-05 16:58:16,808 - aiogram.event - INFO - Update id=269252347 is handled. Duration 346 ms by bot id=8370724288
+2025-09-05 16:58:20,139 - aiogram.event - INFO - Update id=269252348 is handled. Duration 80 ms by bot id=8370724288
+2025-09-05 16:58:22,234 - aiogram.event - INFO - Update id=269252349 is handled. Duration 202 ms by bot id=8370724288
+2025-09-05 16:58:23,314 - aiogram.event - INFO - Update id=269252350 is handled. Duration 161 ms by bot id=8370724288
+2025-09-05 16:58:25,011 - aiogram.event - INFO - Update id=269252351 is handled. Duration 431 ms by bot id=8370724288
+2025-09-05 16:58:26,150 - aiogram.event - INFO - Update id=269252352 is handled. Duration 128 ms by bot id=8370724288
+2025-09-05 16:58:27,473 - aiogram.event - INFO - Update id=269252353 is handled. Duration 138 ms by bot id=8370724288
+2025-09-05 16:58:28,851 - aiogram.event - INFO - Update id=269252354 is handled. Duration 161 ms by bot id=8370724288
+2025-09-05 16:58:30,102 - aiogram.event - INFO - Update id=269252355 is handled. Duration 85 ms by bot id=8370724288
+2025-09-05 16:58:31,218 - __main__ - INFO - User 1226131544 requested help
+2025-09-05 16:58:31,288 - aiogram.event - INFO - Update id=269252356 is handled. Duration 70 ms by bot id=8370724288
+2025-09-05 16:58:32,904 - aiogram.event - INFO - Update id=269252357 is handled. Duration 74 ms by bot id=8370724288
+2025-09-05 16:58:35,576 - aiogram.event - INFO - Update id=269252358 is handled. Duration 93 ms by bot id=8370724288
+2025-09-05 16:58:38,138 - aiogram.event - INFO - Update id=269252359 is handled. Duration 73 ms by bot id=8370724288
+2025-09-05 16:58:42,447 - aiogram.event - INFO - Update id=269252360 is handled. Duration 76 ms by bot id=8370724288
+2025-09-05 16:58:49,746 - aiogram.event - INFO - Update id=269252361 is not handled. Duration 3 ms by bot id=8370724288
+2025-09-05 16:59:21,857 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 16:59:21,859 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:59:21,859 - aiogram.dispatcher - INFO - Polling stopped
+2025-09-05 16:59:23,769 - __main__ - INFO - Bot starting...
+2025-09-05 16:59:23,769 - aiogram.dispatcher - INFO - Start polling
+2025-09-05 16:59:23,988 - aiogram.dispatcher - INFO - Run polling for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 16:59:27,515 - aiogram.event - INFO - Update id=269252362 is handled. Duration 612 ms by bot id=8370724288
+2025-09-05 17:03:16,776 - aiogram.dispatcher - WARNING - Received SIGINT signal
+2025-09-05 17:03:16,779 - aiogram.dispatcher - INFO - Polling stopped for bot @emperador_test_bot id=8370724288 - 'Emperador'
+2025-09-05 17:03:16,779 - aiogram.dispatcher - INFO - Polling stopped
