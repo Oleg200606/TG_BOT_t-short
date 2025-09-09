@@ -32,6 +32,7 @@ from repositories import (
     UserRepository, CategoryRepository, ProductRepository,
     CartRepository, OrderRepository
 )
+from admin_panel_v2 import register_admin_panel, register_support
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN", "")
@@ -45,6 +46,8 @@ IMAGES_DIR.mkdir(exist_ok=True)
 
 # Инициализация базы данных
 init_db()
+register_admin_panel(dp, bot)
+register_support(dp, bot)
 
 # Настройка логирования
 logging.basicConfig(
