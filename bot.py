@@ -26,13 +26,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 # Локальные импорты
-from database import get_db, init_db, engine
+from database import get_db, init_db
 from models import User, Category, Product, CartItem, Order, OrderItem
 from repositories import (
     UserRepository, CategoryRepository, ProductRepository,
     CartRepository, OrderRepository
 )
-from admin_panel_v2 import register_admin_panel, register_support
+from admin_panel_v_2 import register_admin_panel, register_support 
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN", "")
@@ -46,8 +46,7 @@ IMAGES_DIR.mkdir(exist_ok=True)
 
 # Инициализация базы данных
 init_db()
-register_admin_panel(dp, bot)
-register_support(dp, bot)
+
 
 # Настройка логирования
 logging.basicConfig(
@@ -69,14 +68,7 @@ class OrderFSM(StatesGroup):
     waiting_address = State()
     confirm = State()
 
-class AdminFSM(StatesGroup):
-    waiting_product_name = State()
-    waiting_product_description = State()
-    waiting_product_price = State()
-    waiting_product_sizes = State()
-    waiting_product_category = State()
-    waiting_product_images = State()
-    waiting_product_confirm = State()
+
 
 def main_menu_kb() -> ReplyKeyboardMarkup:
     kb = ReplyKeyboardBuilder()
@@ -87,15 +79,7 @@ def main_menu_kb() -> ReplyKeyboardMarkup:
     kb.adjust(2, 2)
     return kb.as_markup(resize_keyboard=True)
 
-def admin_menu_kb() -> ReplyKeyboardMarkup:
-    kb = ReplyKeyboardBuilder()
-    kb.button(text="📊 Статистика")
-    kb.button(text="➕ Добавить товар")
-    kb.button(text="📦 Все заказы")
-    kb.button(text="🖼️ Управление товарами")
-    kb.button(text="👤 Главное меню")
-    kb.adjust(2, 2, 1)
-    return kb.as_markup(resize_keyboard=True)
+
 
 def categories_ikb() -> InlineKeyboardMarkup:
     db = next(get_db())
@@ -240,6 +224,10 @@ async def notify_admins(bot: Bot, order: Order):
 dp = Dispatcher(storage=MemoryStorage())
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode="Markdown"))
 
+
+register_admin_panel(dp, bot)
+register_support(dp, bot)
+
 @dp.message(CommandStart())
 async def on_start(message: Message):
     logger.info(f"User {message.from_user.id} started bot")
@@ -255,7 +243,7 @@ async def on_start(message: Message):
         )
         
         # Автоматически сделать администратором, если ID в списке
-        if message.from_user.id in ADMIN_CHAT_IDS:
+        if message.from_user.id in ADMIN_CHAT_IDS and not user.is_admin:
             user.is_admin = True
             db.commit()
             logger.info(f"User {message.from_user.id} set as admin")
@@ -267,6 +255,8 @@ async def on_start(message: Message):
         "Привет! Это бот для заказов одежды Эмперадор.\n\nВыбери действие:",
         reply_markup=main_menu_kb()
     )
+
+
 
 @dp.message(Command("help"))
 @dp.message(F.text == "❓ Помощь")
@@ -522,304 +512,6 @@ async def confirm_order(cb: CallbackQuery, state: FSMContext):
     )
     await cb.answer()
 
-# Админские команды
-@dp.message(Command("admin"))
-async def admin_panel(message: Message):
-    db = next(get_db())
-    try:
-        if not UserRepository.is_admin(db, message.from_user.id):
-            await message.answer("Команда доступна только администраторам.")
-            return
-    finally:
-        db.close()
-
-    await message.answer("Панель администратора:", reply_markup=admin_menu_kb())
-
-@dp.message(F.text == "📊 Статистика")
-@dp.message(Command("admin_stats"))
-async def admin_stats(message: Message):
-    db = next(get_db())
-    try:
-        if not UserRepository.is_admin(db, message.from_user.id):
-            await message.answer("Доступ запрещен.")
-            return
-
-        total_orders = db.query(Order).count()
-        total_users = db.query(User).count()
-        pending_orders = db.query(Order).filter(Order.status == "pending").count()
-
-        revenue = db.query(Order).filter(Order.status.in_(["confirmed", "processing", "shipped", "delivered"])).all()
-        total_revenue = sum(order.total_amount for order in revenue)
-    finally:
-        db.close()
-
-    stats_text = [
-        "📊 *Статистика магазина*",
-        f"Всего заказов: {total_orders}",
-        f"Ожидают обработки: {pending_orders}",
-        f"Всего пользователей: {total_users}",
-        f"Общая выручка: {total_revenue} ₽"
-    ]
-
-    await message.answer("\n".join(stats_text))
-
-@dp.message(F.text == "📦 Все заказы")
-@dp.message(Command("admin_orders"))
-async def admin_orders(message: Message):
-    db = next(get_db())
-    try:
-        if not UserRepository.is_admin(db, message.from_user.id):
-            await message.answer("Доступ запрещен.")
-            return
-
-        orders = OrderRepository.get_all_orders(db, limit=10)
-    finally:
-        db.close()
-
-    if not orders:
-        await message.answer("Пока нет заказов.")
-        return
-
-    for order in orders:
-        order_text = [
-            f"🧾 *Заказ {order.order_number}*",
-            f"Статус: {order.status}",
-            f"Дата: {order.created_at.strftime('%d.%m.%Y %H:%M')}",
-            f"Клиент: {order.fullname}",
-            f"Телефон: {order.phone}",
-            f"Сумма: {order.total_amount} ₽",
-            f"Доставка: {order.delivery_type}"
-        ]
-        await message.answer("\n".join(order_text))
-
-@dp.message(F.text == "➕ Добавить товар")
-@dp.message(Command("add_product"))
-async def add_product_start(message: Message, state: FSMContext):
-    db = next(get_db())
-    try:
-        if not UserRepository.is_admin(db, message.from_user.id):
-            await message.answer("Доступ запрещен.")
-            return
-    finally:
-        db.close()
-
-    await message.answer("Введите название товара:")
-    await state.set_state(AdminFSM.waiting_product_name)
-
-@dp.message(AdminFSM.waiting_product_name)
-async def add_product_name(message: Message, state: FSMContext):
-    await state.update_data(product_name=message.text)
-    await message.answer("Введите описание товара:")
-    await state.set_state(AdminFSM.waiting_product_description)
-
-@dp.message(AdminFSM.waiting_product_description)
-async def add_product_description(message: Message, state: FSMContext):
-    await state.update_data(product_description=message.text)
-    await message.answer("Введите цену товара (только цифры):")
-    await state.set_state(AdminFSM.waiting_product_price)
-
-@dp.message(AdminFSM.waiting_product_price)
-async def add_product_price(message: Message, state: FSMContext):
-    try:
-        price = int(message.text)
-        await state.update_data(product_price=price)
-
-        db = next(get_db())
-        try:
-            categories = CategoryRepository.get_all_active(db)
-        finally:
-            db.close()
-
-        kb = InlineKeyboardBuilder()
-        for category in categories:
-            kb.button(text=category.title, callback_data=f"admin_cat:{category.id}")
-        kb.adjust(1)
-
-        await message.answer("Выберите категорию:", reply_markup=kb.as_markup())
-        await state.set_state(AdminFSM.waiting_product_category)
-    except ValueError:
-        await message.answer("Пожалуйста, введите корректную цену (только цифры):")
-
-@dp.callback_query(AdminFSM.waiting_product_category, F.data.startswith("admin_cat:"))
-async def add_product_category(cb: CallbackQuery, state: FSMContext):
-    category_id = int(cb.data.split(":")[1])
-    await state.update_data(category_id=category_id)
-    await cb.message.answer("Введите доступные размеры через запятую (например: S,M,L,XL):")
-    await state.set_state(AdminFSM.waiting_product_sizes)
-    await cb.answer()
-
-@dp.message(AdminFSM.waiting_product_sizes)
-async def add_product_sizes(message: Message, state: FSMContext):
-    sizes = [size.strip() for size in message.text.split(",")]
-    await state.update_data(product_sizes=sizes)
-    await message.answer("Теперь отправьте фотографии товара (до 5 фото). Отправьте 'Готово' когда закончите:")
-    await state.set_state(AdminFSM.waiting_product_images)
-
-@dp.message(AdminFSM.waiting_product_images, F.photo)
-async def add_product_photo(message: Message, state: FSMContext):
-    data = await state.get_data()
-    images = data.get('product_images', [])
-
-    if len(images) >= 5:
-        await message.answer("Максимум 5 фотографий. Нажмите 'Готово' для завершения.")
-        return
-
-    photo = message.photo[-1]
-    file_id = photo.file_id
-    file = await bot.get_file(file_id)
-    file_path = file.file_path
-
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"product_{timestamp}_{len(images)}.jpg"
-    save_path = IMAGES_DIR / filename
-
-    await bot.download_file(file_path, save_path)
-
-    images.append(str(save_path))
-    await state.update_data(product_images=images)
-
-    await message.answer(f"Фото добавлено ({len(images)}/5). Отправьте еще фото или 'Готово':")
-
-@dp.message(AdminFSM.waiting_product_images, F.text == "Готово")
-async def finish_photos(message: Message, state: FSMContext):
-    data = await state.get_data()
-
-    if not data.get('product_images'):
-        await message.answer("Вы не добавили ни одной фотографии. Продолжить без фото? (да/нет)")
-        await state.set_state(AdminFSM.waiting_product_confirm)
-        return
-
-    preview_text = [
-        "📋 *Превью товара:*",
-        f"Название: {data['product_name']}",
-        f"Описание: {data['product_description']}",
-        f"Цена: {data['product_price']} ₽",
-        f"Размеры: {', '.join(data['product_sizes'])}",
-        f"Фотографий: {len(data['product_images'])}",
-        "",
-        "Сохранить товар? (да/нет)"
-    ]
-
-    with open(data['product_images'][0], 'rb') as photo:
-        await message.answer_photo(
-            photo=photo,
-            caption="\n".join(preview_text),
-            parse_mode="Markdown"
-        )
-
-    await state.set_state(AdminFSM.waiting_product_confirm)
-
-@dp.message(AdminFSM.waiting_product_confirm, F.text.lower() == "да")
-async def confirm_product_save(message: Message, state: FSMContext):
-    data = await state.get_data()
-
-    db = next(get_db())
-    try:
-        category = db.query(Category).filter(Category.id == data['category_id']).first()
-        product_count = db.query(Product).filter(Product.category_id == data['category_id']).count()
-        product_id = f"{category.key}_{product_count + 1:03d}"
-
-        product = Product(
-            category_id=data['category_id'],
-            product_id=product_id,
-            name=data['product_name'],
-            description=data['product_description'],
-            price=data['product_price'],
-            sizes=data['product_sizes'],
-            images=data.get('product_images', [])
-        )
-
-        db.add(product)
-        db.commit()
-        db.refresh(product)
-    except Exception as e:
-        logger.error(f"Error saving product: {e}")
-        await message.answer("Ошибка при сохранении товара.")
-        return
-    finally:
-        db.close()
-
-    await message.answer(f"✅ Товар '{data['product_name']}' успешно добавлен!")
-    await state.clear()
-
-@dp.message(AdminFSM.waiting_product_confirm, F.text.lower() == "нет")
-async def cancel_product_save(message: Message, state: FSMContext):
-    data = await state.get_data()
-    for image_path in data.get('product_images', []):
-        try:
-            os.remove(image_path)
-        except:
-            pass
-
-    await message.answer("Добавление товара отменено.")
-    await state.clear()
-
-@dp.message(F.text == "🖼️ Управление товарами")
-async def manage_products(message: Message):
-    db = next(get_db())
-    try:
-        if not UserRepository.is_admin(db, message.from_user.id):
-            await message.answer("Доступ запрещен.")
-            return
-
-        products = db.query(Product).all()
-    finally:
-        db.close()
-
-    if not products:
-        await message.answer("Товаров пока нет.")
-        return
-
-    kb = InlineKeyboardBuilder()
-    for product in products:
-        kb.button(text=product.name, callback_data=f"edit_prod:{product.id}")
-    kb.adjust(1)
-
-    await message.answer("Выберите товар для редактирования:", reply_markup=kb.as_markup())
-
-@dp.callback_query(F.data.startswith("edit_prod:"))
-async def edit_product(cb: CallbackQuery):
-    product_id = int(cb.data.split(":")[1])
-
-    db = next(get_db())
-    try:
-        product = db.query(Product).filter(Product.id == product_id).first()
-        if not product:
-            await cb.answer("Товар не найден")
-            return
-
-        text = [
-            f"📦 *{product.name}*",
-            f"Цена: {product.price} ₽",
-            f"Размеры: {', '.join(product.sizes)}",
-            f"Категория: {product.category.title}",
-            f"ID: {product.product_id}",
-            "",
-            "Действия:"
-        ]
-
-        kb = InlineKeyboardBuilder()
-        kb.button(text="✏️ Изменить цену", callback_data=f"change_price:{product.id}")
-        kb.button(text="📝 Изменить описание", callback_data=f"change_desc:{product.id}")
-        kb.button(text="🖼️ Добавить фото", callback_data=f"add_photo:{product.id}")
-        kb.button(text="❌ Удалить товар", callback_data=f"delete_prod:{product.id}")
-        kb.adjust(1)
-
-        if product.images:
-            with open(product.images[0], 'rb') as photo:
-                await cb.message.answer_photo(
-                    photo=photo,
-                    caption="\n".join(text),
-                    reply_markup=kb.as_markup(),
-                    parse_mode="Markdown"
-                )
-        else:
-            await cb.message.answer("\n".join(text), reply_markup=kb.as_markup(), parse_mode="Markdown")
-
-    finally:
-        db.close()
-
-    await cb.answer()
 
 @dp.message(Command("cancel"))
 async def cancel_handler(message: Message, state: FSMContext):

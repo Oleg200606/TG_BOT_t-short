@@ -155,23 +155,19 @@ class SupportAdminReplyFSM(StatesGroup):
 
 def register_admin_panel(dp: Dispatcher, bot: Bot):
 
-
-    # /admin
     @dp.message(Command("admin"))
     async def admin_entry(message: Message):
-        db = next(get_db())
-        try:
-            if not UserRepository.is_admin(db, message.from_user.id):
-                await message.answer("Команда доступна только администраторам.")
-                return
-        finally:
-            db.close()
+        # Простая проверка без обращения к БД
+        if message.from_user.id not in ADMIN_CHAT_IDS:
+            await message.answer("Команда доступна только администраторам.")
+            return
+        
         await message.answer("Панель администратора:", reply_markup=admin_menu_kb())
 
     #(инлайн)
     @dp.callback_query(F.data == "adm:products")
     async def adm_products_menu(cb: CallbackQuery):
-        if not _ensure_admin(cb.from_user.id):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
             await cb.answer("Нет доступа", show_alert=True)
             return
         await cb.message.edit_text("📦 Управление товарами:", reply_markup=admin_products_menu_kb())
@@ -179,7 +175,7 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
 
     @dp.callback_query(F.data == "adm:orders")
     async def adm_orders_menu(cb: CallbackQuery):
-        if not _ensure_admin(cb.from_user.id):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
             await cb.answer("Нет доступа", show_alert=True)
             return
         await cb.message.edit_text("🧾 Управление заказами:", reply_markup=admin_orders_menu_kb())
@@ -187,7 +183,7 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
 
     @dp.callback_query(F.data == "adm:support")
     async def adm_support_menu(cb: CallbackQuery):
-        if not _ensure_admin(cb.from_user.id):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
             await cb.answer("Нет доступа", show_alert=True)
             return
         await cb.message.edit_text("🆘 Техподдержка:", reply_markup=admin_support_menu_kb())
@@ -195,7 +191,7 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
 
     @dp.callback_query(F.data == "adm:stats")
     async def adm_stats(cb: CallbackQuery):
-        if not _ensure_admin(cb.from_user.id):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
             await cb.answer("Нет доступа", show_alert=True)
             return
         db = next(get_db())
@@ -226,7 +222,7 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
 
     @dp.callback_query(F.data == "adm_prod:create")
     async def adm_prod_create_start(cb: CallbackQuery, state: FSMContext):
-        if not _ensure_admin(cb.from_user.id):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
             await cb.answer("Нет доступа", show_alert=True)
             return
         await state.clear()
@@ -364,7 +360,7 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
 
     @dp.callback_query(F.data.startswith("adm_prod:list:"))
     async def adm_prod_list(cb: CallbackQuery):
-        if not _ensure_admin(cb.from_user.id):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
             await cb.answer("Нет доступа", show_alert=True)
             return
         page = int(cb.data.split(":")[2])
@@ -396,7 +392,7 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
 
     @dp.callback_query(F.data.startswith("adm_prod:del:"))
     async def adm_prod_delete(cb: CallbackQuery):
-        if not _ensure_admin(cb.from_user.id):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
             await cb.answer("Нет доступа", show_alert=True)
             return
         pid = int(cb.data.split(":")[2])
@@ -420,7 +416,7 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
 
     @dp.callback_query(F.data.startswith("adm_prod:edit:"))
     async def adm_prod_edit_menu(cb: CallbackQuery, state: FSMContext):
-        if not _ensure_admin(cb.from_user.id):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
             await cb.answer("Нет доступа", show_alert=True)
             return
         pid = int(cb.data.split(":")[2])
@@ -536,7 +532,7 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
         await _render_orders(cb, page=int(page), status=status)
 
     async def _render_orders(cb: CallbackQuery, page: int, status: Optional[str]):
-        if not _ensure_admin(cb.from_user.id):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
             await cb.answer("Нет доступа", show_alert=True)
             return
         db = next(get_db())
@@ -572,7 +568,7 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
 
     @dp.callback_query(F.data.startswith("adm_order:view:"))
     async def adm_order_view(cb: CallbackQuery):
-        if not _ensure_admin(cb.from_user.id):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
             await cb.answer("Нет доступа", show_alert=True)
             return
         oid = int(cb.data.split(":")[2])
@@ -730,13 +726,6 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
         await cb.message.edit_text(f"Тикет {tid} закрыт.", reply_markup=admin_support_menu_kb())
         await cb.answer()
 
-    def _ensure_admin(telegram_id: int) -> bool:
-        db = next(get_db())
-        try:
-            return UserRepository.is_admin(db, telegram_id)
-        finally:
-            db.close()
-
 
 def register_support(dp: Dispatcher, bot: Bot):
     """Хендлеры для пользовательской техподдержки: команды и кнопки."""
@@ -780,9 +769,3 @@ def register_support(dp: Dispatcher, bot: Bot):
                 await message.bot.send_message(chat_id, payload, parse_mode="Markdown", reply_markup=ticket_actions_kb(tid))
             except Exception:
                 pass
-
-
-# ---------- Пример интеграции ----------
-# В твоём основном файле после инициализации dp/bot просто вызови:
-# register_admin_panel(dp, bot)
-# register_support(dp, bot)

@@ -3,11 +3,15 @@ from models import User, Category, Product, CartItem, Order, OrderItem
 from datetime import datetime
 import random
 import string
+import os
+
+ADMIN_CHAT_IDS = [int(id) for id in os.environ.get('ADMIN_CHAT_IDS', '').split(',')]
+
+
 
 class UserRepository:
     @staticmethod
-    def get_or_create_user(db: Session, telegram_id: int, username: str = None,
-                         first_name: str = None, last_name: str = None):
+    def get_or_create_user(db: Session, telegram_id: int, username: str, first_name: str, last_name: str):
         user = db.query(User).filter(User.telegram_id == telegram_id).first()
         if not user:
             user = User(
@@ -22,10 +26,10 @@ class UserRepository:
         return user
 
     @staticmethod
-    def is_admin(db: Session, telegram_id: int):
-        user = db.query(User).filter(User.telegram_id == telegram_id).first()
-        return user and user.role == "admin"
-
+    def is_admin(db: Session, telegram_id: int) -> bool:
+        """Проверяет, является ли пользователь администратором (хардкод)"""
+        return telegram_id in ADMIN_CHAT_IDS
+    
 class CategoryRepository:
     @staticmethod
     def get_all_active(db: Session):
