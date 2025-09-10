@@ -23,6 +23,11 @@ class User(Base):
 
     orders = relationship("Order", back_populates="user")
     cart_items = relationship("CartItem", back_populates="user")
+    tickets = relationship("Ticket", back_populates="user")  # Новое поле для хранения тикетов
+    
+    @property
+    def is_admin(self):
+        return self.role == UserRole.ADMIN.value
 
 class Category(Base):
     __tablename__ = "categories"
@@ -92,6 +97,16 @@ class Order(Base):
     user = relationship("User", back_populates="orders")
     items = relationship("OrderItem", back_populates="order")
 
+class OrderStatus(enum.Enum):
+    PENDING = "pending"
+    CONFIRMED = "confirmed"
+    PROCESSING = "processing"
+    SHIPPED = "shipped"
+    DELIVERED = "delivered"
+    CANCELLED = "cancelled"
+
+    
+
 class OrderItem(Base):
     __tablename__ = "order_items"
 
@@ -106,3 +121,30 @@ class OrderItem(Base):
 
     order = relationship("Order", back_populates="items")
     product = relationship("Product", back_populates="order_items")
+
+class OrderStatus(enum.Enum):
+    PENDING = "pending"
+    CONFIRMED = "confirmed"
+    PROCESSING = "processing"
+    SHIPPED = "shipped"
+    DELIVERED = "delivered"
+    CANCELLED = "cancelled"
+
+class TicketStatus(enum.Enum):
+    OPEN = "open"
+    CLOSED = "closed"
+    RESOLVED = "resolved"
+    REOPENED = "reopened"
+
+class Ticket(Base):
+    __tablename__ = "tickets"
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    message = Column(Text, nullable=False)  # Сообщение пользователя
+    status = Column(String(20), default=TicketStatus.OPEN.value)
+    admin_response = Column(Text, nullable=True)  # Ответ администратора
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    user = relationship("User", back_populates="tickets")
