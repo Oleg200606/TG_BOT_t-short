@@ -3,12 +3,18 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+    networks:
+      - database_network
   db:
     image: postgres:12.3-alpine
     env_file:
       - .env
+    networks:
+      - database_network
 
-    ports:
-      - "5432:5432"
     volumes:
       - ./data:/var/lib/postgresql/data
+
+networks:
+  database_network:
+    driver: bridge

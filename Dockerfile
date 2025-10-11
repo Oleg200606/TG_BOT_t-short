@@ -8,8 +8,7 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем uv для быстрой установки зависимостей (опционально, но рекомендуется)
-RUN pip install --no-cache-dir uv
+
 
 # Создаем рабочую директорию
 WORKDIR /app
@@ -18,7 +17,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Устанавливаем зависимости через uv (быстрее чем pip)
-RUN uv pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Копируем исходный код
 COPY . .
