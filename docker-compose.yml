@@ -7,7 +7,6 @@ services:
     image: postgres:12.3-alpine
     env_file:
       - .env
-    environment:
 
     ports:
       - "5432:5432"
