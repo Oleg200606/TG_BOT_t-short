@@ -1,5 +1,7 @@
 services:
   bot:
+    depends_on:
+      - db
     build:
       dockerfile: Dockerfile
       context: .

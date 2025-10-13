@@ -48,17 +48,26 @@ def paginate(items: List, page: int, per_page: int = 10):
 def admin_menu_kb() -> InlineKeyboardMarkup:
     ib = InlineKeyboardBuilder()
     ib.button(text="📦 Товары", callback_data="adm:products")
+    ib.button(text="🗂 Категории", callback_data="adm:categories")  # Новая кнопка
     ib.button(text="🧾 Заказы", callback_data="adm:orders")
     ib.button(text="🆘 Техподдержка", callback_data="adm:support")
     ib.button(text="📊 Статистика", callback_data="adm:stats")
     ib.button(text="👤 Главное меню", callback_data="adm:home")
-    ib.adjust(2, 2, 1)
+    ib.adjust(2, 2, 1, 1)
     return ib.as_markup()
 
 def admin_products_menu_kb() -> InlineKeyboardMarkup:
     ib = InlineKeyboardBuilder()
     ib.button(text="➕ Создать товар", callback_data="adm_prod:create")
     ib.button(text="🗂 Список товаров", callback_data="adm_prod:list:0")
+    ib.button(text="⬅️ Назад", callback_data="adm:back")
+    ib.adjust(1, 1, 1)
+    return ib.as_markup()
+
+def admin_categories_menu_kb() -> InlineKeyboardMarkup:
+    ib = InlineKeyboardBuilder()
+    ib.button(text="➕ Создать категорию", callback_data="adm_cat:create")
+    ib.button(text="📋 Список категорий", callback_data="adm_cat:list:0")
     ib.button(text="⬅️ Назад", callback_data="adm:back")
     ib.adjust(1, 1, 1)
     return ib.as_markup()
@@ -121,6 +130,16 @@ class AdminProductEditFSM(StatesGroup):
     waiting_field = State()
     new_value = State()
     add_photo = State()
+
+
+class AdminCategoryCreateFSM(StatesGroup):
+    title = State()
+    key = State()
+    confirm = State()
+
+class AdminCategoryEditFSM(StatesGroup):
+    waiting_field = State()
+    new_value = State()
 
 class AdminOrderEditFSM(StatesGroup):
     waiting_status = State()
@@ -237,6 +256,10 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
             cats = CategoryRepository.get_all_active(db)
         finally:
             db.close()
+        if not cats:
+            await message.answer("❌ Нет активных категорий. Сначала создайте категорию.")
+            await state.clear()
+            return
         ib = InlineKeyboardBuilder()
         for c in cats:
             ib.button(text=c.title, callback_data=f"adm_prod:create_cat:{c.id}")
@@ -296,6 +319,268 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
         ib.adjust(2)
         await state.set_state(AdminProductCreateFSM.confirm)
         await message.answer(text, parse_mode="Markdown", reply_markup=ib.as_markup())
+    
+
+        # Меню категорий
+    @dp.callback_query(F.data == "adm:categories")
+    async def adm_categories_menu(cb: CallbackQuery):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
+            await cb.answer("Нет доступа", show_alert=True)
+            return
+        await cb.message.edit_text("🗂 Управление категориями:", reply_markup=admin_categories_menu_kb())
+        await cb.answer()
+
+    # Создание категории - начало
+    @dp.callback_query(F.data == "adm_cat:create")
+    async def adm_cat_create_start(cb: CallbackQuery, state: FSMContext):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
+            await cb.answer("Нет доступа", show_alert=True)
+            return
+        await state.clear()
+        await state.set_state(AdminCategoryCreateFSM.title)
+        await cb.message.edit_text("Введите название категории:")
+        await cb.answer()
+
+    # Получение названия категории
+    @dp.message(AdminCategoryCreateFSM.title)
+    async def adm_cat_create_title(message: Message, state: FSMContext):
+        await state.update_data(title=message.text)
+        await state.set_state(AdminCategoryCreateFSM.key)
+        await message.answer("Введите ключ категории (латинскими буквами, без пробелов, напр. tshirts):")
+
+    # Получение ключа категории
+    @dp.message(AdminCategoryCreateFSM.key)
+    async def adm_cat_create_key(message: Message, state: FSMContext):
+        key = message.text.strip().lower()
+        # Проверка формата ключа
+        if not key.replace('_', '').isalpha():
+            await message.answer("Ключ должен содержать только латинские буквы и подчеркивания. Попробуйте снова:")
+            return
+        
+        db = next(get_db())
+        try:
+            # Проверка уникальности ключа
+            existing = db.query(Category).filter(Category.key == key).first()
+            if existing:
+                await message.answer("Категория с таким ключом уже существует. Введите другой ключ:")
+                return
+        finally:
+            db.close()
+        
+        await state.update_data(key=key)
+        data = await state.get_data()
+        
+        # Превью категории
+        text = (
+            "📋 *Превью категории:*\n"
+            f"Название: {data['title']}\n"
+            f"Ключ: {data['key']}\n\n"
+            "Создать категорию?"
+        )
+        ib = InlineKeyboardBuilder()
+        ib.button(text="✅ Создать", callback_data="adm_cat:create_save")
+        ib.button(text="❌ Отмена", callback_data="adm_cat:create_cancel")
+        ib.adjust(2)
+        await state.set_state(AdminCategoryCreateFSM.confirm)
+        await message.answer(text, parse_mode="Markdown", reply_markup=ib.as_markup())
+
+    # Отмена создания категории
+    @dp.callback_query(AdminCategoryCreateFSM.confirm, F.data == "adm_cat:create_cancel")
+    async def adm_cat_create_cancel(cb: CallbackQuery, state: FSMContext):
+        await state.clear()
+        await cb.message.edit_text("Создание категории отменено.", reply_markup=admin_categories_menu_kb())
+        await cb.answer()
+
+    # Сохранение категории
+    @dp.callback_query(AdminCategoryCreateFSM.confirm, F.data == "adm_cat:create_save")
+    async def adm_cat_create_save(cb: CallbackQuery, state: FSMContext):
+        data = await state.get_data()
+        db = next(get_db())
+        try:
+            category = Category(
+                title=data['title'],
+                key=data['key'],
+                is_active=True
+            )
+            db.add(category)
+            db.commit()
+            await cb.message.edit_text(f"✅ Категория '{data['title']}' создана!", reply_markup=admin_categories_menu_kb())
+        except Exception as e:
+            db.rollback()
+            await cb.message.edit_text(f"❌ Ошибка при создании категории: {e}")
+        finally:
+            db.close()
+            await state.clear()
+        await cb.answer()
+
+    # Список категорий
+    @dp.callback_query(F.data.startswith("adm_cat:list:"))
+    async def adm_cat_list(cb: CallbackQuery):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
+            await cb.answer("Нет доступа", show_alert=True)
+            return
+        
+        page = int(cb.data.split(":")[2])
+        db = next(get_db())
+        try:
+            categories = db.query(Category).order_by(Category.id.desc()).all()
+        finally:
+            db.close()
+        
+        slice_, total = paginate(categories, page, per_page=10)
+        if not slice_:
+            await cb.message.edit_text("Категории не найдены", reply_markup=admin_categories_menu_kb())
+            await cb.answer()
+            return
+        
+        text_lines = ["🗂 *Категории (страница %d)*" % (page + 1)]
+        ib = InlineKeyboardBuilder()
+        
+        for cat in slice_:
+            status = "🟢" if cat.is_active else "🔴"
+            product_count = len(cat.products) if hasattr(cat, 'products') else 0
+            text_lines.append(f"• {cat.id}. {status} {cat.title} ({cat.key}) - товаров: {product_count}")
+            ib.button(text=f"✏️ {cat.id}", callback_data=f"adm_cat:edit:{cat.id}")
+            ib.button(text=f"{'🔴' if cat.is_active else '🟢'} {cat.id}", 
+                     callback_data=f"adm_cat:toggle:{cat.id}")
+        
+        nav = InlineKeyboardBuilder()
+        if page > 0:
+            nav.button(text="⬅️", callback_data=f"adm_cat:list:{page-1}")
+        if (page + 1) * 10 < total:
+            nav.button(text="➡️", callback_data=f"adm_cat:list:{page+1}")
+        nav.button(text="⬅️ Назад", callback_data="adm:categories")
+        nav.adjust(2, 1)
+        
+        await cb.message.edit_text("\n".join(text_lines), parse_mode="Markdown", 
+                                 reply_markup=InlineKeyboardMarkup(inline_keyboard=[ib.export()[0] if ib.export() else [], *nav.export()]))
+        await cb.answer()
+
+    # Переключение активности категории
+    @dp.callback_query(F.data.startswith("adm_cat:toggle:"))
+    async def adm_cat_toggle(cb: CallbackQuery):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
+            await cb.answer("Нет доступа", show_alert=True)
+            return
+        
+        cat_id = int(cb.data.split(":")[2])
+        db = next(get_db())
+        try:
+            category = db.query(Category).filter(Category.id == cat_id).first()
+            if not category:
+                await cb.answer("Категория не найдена", show_alert=True)
+                return
+            
+            category.is_active = not category.is_active
+            db.commit()
+            
+            action = "деактивирована" if not category.is_active else "активирована"
+            await cb.answer(f"Категория {action}")
+            
+        except Exception as e:
+            db.rollback()
+            await cb.answer(f"Ошибка: {str(e)}", show_alert=True)
+        finally:
+            db.close()
+        
+        # Обновляем список
+        await adm_cat_list(cb)
+
+    # Меню редактирования категории
+    @dp.callback_query(F.data.startswith("adm_cat:edit:"))
+    async def adm_cat_edit_menu(cb: CallbackQuery, state: FSMContext):
+        if cb.from_user.id not in ADMIN_CHAT_IDS:
+            await cb.answer("Нет доступа", show_alert=True)
+            return
+        
+        cat_id = int(cb.data.split(":")[2])
+        db = next(get_db())
+        try:
+            category = db.query(Category).filter(Category.id == cat_id).first()
+        finally:
+            db.close()
+        
+        if not category:
+            await cb.answer("Категория не найдена", show_alert=True)
+            return
+        
+        status = "🟢 Активна" if category.is_active else "🔴 Неактивна"
+        product_count = len(category.products) if hasattr(category, 'products') else 0
+        
+        text = (
+            f"🗂 *Редактирование категории*\n"
+            f"ID: {category.id}\n"
+            f"Название: {category.title}\n"
+            f"Ключ: {category.key}\n"
+            f"Статус: {status}\n"
+            f"Товаров: {product_count}"
+        )
+        
+        ib = InlineKeyboardBuilder()
+        ib.button(text="✏️ Название", callback_data=f"adm_cat:edit_field:{cat_id}:title")
+        ib.button(text="🔑 Ключ", callback_data=f"adm_cat:edit_field:{cat_id}:key")
+        ib.button(text="⬅️ К списку", callback_data="adm_cat:list:0")
+        ib.adjust(2, 1)
+        
+        await state.update_data(edit_category_id=cat_id)
+        await cb.message.edit_text(text, parse_mode="Markdown", reply_markup=ib.as_markup())
+        await cb.answer()
+
+    # Редактирование поля категории
+    @dp.callback_query(F.data.startswith("adm_cat:edit_field:"))
+    async def adm_cat_edit_field(cb: CallbackQuery, state: FSMContext):
+        _, _, cat_id, field = cb.data.split(":")
+        await state.update_data(edit_category_id=int(cat_id), edit_field=field)
+        await state.set_state(AdminCategoryEditFSM.new_value)
+        
+        prompts = {
+            "title": "Введите новое название категории:",
+            "key": "Введите новый ключ категории (латинскими буквами, без пробелов):",
+        }
+        await cb.message.edit_text(prompts.get(field, "Введите значение:"))
+        await cb.answer()
+
+    # Применение изменений категории
+    @dp.message(AdminCategoryEditFSM.new_value)
+    async def adm_cat_apply_edit(message: Message, state: FSMContext):
+        data = await state.get_data()
+        cat_id = data["edit_category_id"]
+        field = data["edit_field"]
+        new_value = message.text.strip()
+        
+        db = next(get_db())
+        try:
+            category = db.query(Category).filter(Category.id == cat_id).first()
+            if not category:
+                await message.answer("Категория не найдена.")
+                await state.clear()
+                return
+            
+            if field == "key":
+                # Проверка формата ключа
+                if not new_value.replace('_', '').isalpha():
+                    await message.answer("Ключ должен содержать только латинские буквы и подчеркивания. Попробуйте ещё раз:")
+                    return
+                
+                # Проверка уникальности ключа
+                existing = db.query(Category).filter(Category.key == new_value, Category.id != cat_id).first()
+                if existing:
+                    await message.answer("Категория с таким ключом уже существует. Введите другой ключ:")
+                    return
+                
+                category.key = new_value.lower()
+            elif field == "title":
+                category.title = new_value
+            
+            db.commit()
+            await message.answer("✅ Изменения сохранены.")
+            
+        except Exception as e:
+            db.rollback()
+            await message.answer(f"❌ Ошибка при сохранении: {e}")
+        finally:
+            db.close()
+            await state.clear()
 
     @dp.callback_query(AdminProductCreateFSM.confirm, F.data == "adm_prod:create_cancel")
     async def adm_prod_create_cancel(cb: CallbackQuery, state: FSMContext):
@@ -624,16 +909,26 @@ def register_admin_panel(dp: Dispatcher, bot: Bot):
     async def adm_order_set_status(cb: CallbackQuery):
         parts = cb.data.split(":")
         oid = int(parts[2]); new_status = parts[3]
+        
         db = next(get_db())
         try:
-            order = db.query(Order).filter(Order.id == oid).first()
+            order = db.query(Order).options(joinedload(Order.user)).filter(Order.id == oid).first()
             if not order:
                 await cb.answer("Заказ не найден", show_alert=True)
                 return
+            
+            old_status = order.status
             order.status = new_status
             db.commit()
+            
+            # Отправляем уведомление пользователю
+            if old_status != new_status:
+                from bot import send_order_notification
+                await send_order_notification(order.user.telegram_id, order, old_status)
+                
         finally:
             db.close()
+        
         await cb.answer("Статус обновлён")
         await adm_order_view(cb)
 

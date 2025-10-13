@@ -1,6 +1,6 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
-from models import User, Category, Product, CartItem, Order, OrderItem, Ticket, TicketStatus
+from models import User, Category, Product, CartItem, Order, OrderItem, Ticket, TicketStatus, Review
 from datetime import datetime
 import random
 import string
@@ -9,7 +9,7 @@ from sqlalchemy.orm import joinedload
 class UserRepository:
     @staticmethod
     def get_or_create_user(db: Session, telegram_id: int, username: str = None,
-                         first_name: str = None, last_name: str = None):
+                         first_name: str = None, last_name: str = None) -> User:
         user = db.query(User).filter(User.telegram_id == telegram_id).first()
         if not user:
             user = User(
@@ -31,7 +31,7 @@ class UserRepository:
 class CategoryRepository:
     @staticmethod
     def get_all_active(db: Session):
-        return db.query(Category).filter(Category.is_active == 1).all()
+        return db.query(Category).filter(Category.is_active == True).all()
 
     @staticmethod
     def get_by_key(db: Session, key: str):
@@ -278,3 +278,34 @@ class TicketRepository:
     def get_user_tickets_with_user(db: Session, user_id: int) -> List[Ticket]:
         return db.query(Ticket).options(joinedload(Ticket.user)).filter(Ticket.user_id == user_id).order_by(Ticket.created_at.desc()).all()
     
+
+class ReviewRepository:
+    @staticmethod
+    def create_review(db: Session, user_id: int, product_id: int, order_id: int, 
+                     rating: int, comment: str, is_approved: bool = True) -> Review:
+        review = Review(
+            user_id=user_id,
+            product_id=product_id,
+            order_id=order_id,
+            rating=rating,
+            comment=comment,
+            is_approved=is_approved,
+            created_at=datetime.utcnow()
+        )
+        db.add(review)
+        db.commit()
+        db.refresh(review)
+        return review
+    
+    @staticmethod
+    def get_product_reviews(db: Session, product_id: int) -> List[Review]:
+        return db.query(Review).filter(
+            Review.product_id == product_id,
+            Review.is_approved == True
+        ).options(joinedload(Review.user)).all()
+    
+    @staticmethod
+    def get_user_reviews(db: Session, user_id: int) -> List[Review]:
+        return db.query(Review).filter(
+            Review.user_id == user_id
+        ).options(joinedload(Review.product)).all()

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, JSON, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, DateTime, JSON, ForeignKey, Text, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -36,7 +36,7 @@ class Category(Base):
     key = Column(String(50), unique=True, nullable=False)
     title = Column(String(100), nullable=False)
     collage_path = Column(String(200))
-    is_active = Column(Integer, default=1)
+    is_active = Column(Boolean, default=1)
 
     products = relationship("Product", back_populates="category")
 
@@ -148,3 +148,20 @@ class Ticket(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     user = relationship("User", back_populates="tickets")
+
+
+class Review(Base):
+    __tablename__ = "reviews"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    product_id = Column(Integer, ForeignKey("products.id"))
+    order_id = Column(Integer, ForeignKey("orders.id"))
+    rating = Column(Integer)  # 1-5
+    comment = Column(Text)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    is_approved = Column(Boolean, default=True)  # Модерация
+    
+    user = relationship("User")
+    product = relationship("Product")
+    order = relationship("Order")
