@@ -1046,8 +1046,13 @@ async def on_order_cancel(cb: CallbackQuery):
 @rate_limit("message")
 async def on_support(message: Message, state: FSMContext):
     await message.answer(
-        "💬 Напишите ваше сообщение в техподдержку. Мы ответим в ближайшее время:",
-        reply_markup=back_to_main_kb()
+        "💬 Напишите ваше сообщение в техподдержку. Мы ответим в ближайшее время.\n\n"
+        "📝 *Требования к сообщению:*\n"
+        "• Не менее 5 символов\n"
+        "• Не более 2000 символов\n"
+        "• Описание вашей проблемы или вопроса",
+        reply_markup=back_to_main_kb(),
+        parse_mode="Markdown"
     )
     await state.set_state(SupportFSM.waiting_message)
 
@@ -1055,7 +1060,31 @@ async def on_support(message: Message, state: FSMContext):
 @safe_db_operation
 @rate_limit("support")
 async def on_support_message(message: Message, state: FSMContext):
-    support_message = message.text
+    support_message = message.text.strip()
+    
+    # Проверка на пустое сообщение
+    if not support_message:
+        await message.answer(
+            "❌ Сообщение не может быть пустым. Пожалуйста, напишите вашу проблему:",
+            reply_markup=back_to_main_kb()
+        )
+        return
+    
+    # Проверка на слишком короткое сообщение
+    if len(support_message) < 5:
+        await message.answer(
+            "❌ Сообщение слишком короткое. Пожалуйста, опишите вашу проблему подробнее:",
+            reply_markup=back_to_main_kb()
+        )
+        return
+    
+    # Проверка на слишком длинное сообщение
+    if len(support_message) > 2000:
+        await message.answer(
+            "❌ Сообщение слишком длинное. Пожалуйста, сократите его до 2000 символов:",
+            reply_markup=back_to_main_kb()
+        )
+        return
     
     with get_db_safe() as db:
         if db:
