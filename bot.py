@@ -1056,11 +1056,27 @@ async def on_support(message: Message, state: FSMContext):
     )
     await state.set_state(SupportFSM.waiting_message)
 
+@dp.message(SupportFSM.waiting_message, F.text == "⬅️ Главное меню")
+@dp.message(SupportFSM.waiting_message, Command("cancel"))
+@safe_db_operation
+@rate_limit("message")
+async def on_support_cancel(message: Message, state: FSMContext):
+    """Отмена обращения в техподдержку"""
+    await state.clear()
+    await message.answer(
+        "❌ Создание обращения в техподдержку отменено.",
+        reply_markup=main_menu_kb(message.from_user.id)
+    )
+
 @dp.message(SupportFSM.waiting_message)
 @safe_db_operation
 @rate_limit("support")
 async def on_support_message(message: Message, state: FSMContext):
+
+    if message.text in ["⬅️ Главное меню", "/start", "/cancel"]:
+        return
     support_message = message.text.strip()
+    
     
     # Проверка на пустое сообщение
     if not support_message:
