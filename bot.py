@@ -10,6 +10,7 @@ import traceback
 from functools import wraps
 from typing import Optional, List
 
+
 from aiogram import Bot, Dispatcher, F
 from aiogram.client.default import DefaultBotProperties
 from aiogram.filters import CommandStart, Command
@@ -27,6 +28,7 @@ from sqlalchemy.orm import Session, joinedload
 import json
 
 # Локальные импорты
+from admins_panel import admin_menu_kb
 from database import get_db, init_db
 from models import User, Category, Product, CartItem, Order, OrderItem, Review
 from repositories import (
@@ -1039,6 +1041,19 @@ async def on_order_cancel(cb: CallbackQuery):
 # =============================================================================
 # ТЕХПОДДЕРЖКА
 # =============================================================================
+
+@dp.message(Command("admin"))
+@dp.message(F.text == "👑 Админка")
+@safe_db_operation
+@rate_limit("message")
+async def admin_entry(message: Message):
+        if message.from_user.id not in ADMIN_CHAT_IDS:
+            await message.answer("Команда доступна только администраторам.")
+            return
+        
+        await message.answer("Панель администратора:", reply_markup=admin_menu_kb())
+
+
 
 @dp.message(Command("support"))
 @dp.message(F.text == "❓ Техподдержка")
